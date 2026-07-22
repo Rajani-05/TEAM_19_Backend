@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: team-19-backend
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    envVars:
+      - key: SPRING_DATA_MONGODB_URI
+        value: mongodb+srv://rajanibeerangi_db_user:rVMzlTzk2LvZSWwF@cluster.wefwzha.mongodb.net/
+      - key: SPRING_DATA_MONGODB_DATABASE
+        value: eventdb
+      - key: PORT
+        value: "8080"
