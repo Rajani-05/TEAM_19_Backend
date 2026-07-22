@@ -20,8 +20,9 @@ public class EventController {
     @PostMapping
     public ResponseEntity<ApiResponse<Event>> createEvent(
             @AuthenticationPrincipal UserPrincipal principal, @RequestBody EventCreateDto dto) {
-        Event event = eventService.createEvent(principal.getId(), dto.getTitle(), dto.getTargetBudget(), dto.getClientEmail());
-        return ResponseEntity.ok(ApiResponse.success("Event created", event));
+        String plannerId = principal != null ? principal.getId() : "demo_planner_id";
+        Event event = eventService.createEvent(plannerId, dto.getTitle(), dto.getTargetBudget(), dto.getClientEmail());
+        return ResponseEntity.ok(ApiResponse.success("Event created successfully", event));
     }
 
     @GetMapping("/{id}")
@@ -31,7 +32,13 @@ public class EventController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<Event>>> getMyEvents(@AuthenticationPrincipal UserPrincipal principal) {
-        return ResponseEntity.ok(ApiResponse.success("Events retrieved", eventService.getEventsByPlanner(principal.getId())));
+        String plannerId = principal != null ? principal.getId() : "demo_planner_id";
+        return ResponseEntity.ok(ApiResponse.success("Events retrieved", eventService.getEventsByPlanner(plannerId)));
+    }
+
+    @GetMapping("/my-bookings")
+    public ResponseEntity<ApiResponse<List<Event>>> getMyBookings(@AuthenticationPrincipal UserPrincipal principal) {
+        return ResponseEntity.ok(ApiResponse.success("Client bookings retrieved", eventService.getEventsByClientEmail(principal.getEmail())));
     }
 
     @PatchMapping("/{id}/vendors")

@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface EventRepository extends MongoRepository<Event, String> {
     List<Event> findByPlannerId(String plannerId);
+    List<Event> findByClientEmail(String clientEmail);
     Optional<Event> findByClientLinkToken(String clientLinkToken);
 }

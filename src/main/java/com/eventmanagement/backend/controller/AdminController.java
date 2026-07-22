@@ -31,6 +31,12 @@ public class AdminController {
         return ResponseEntity.ok(ApiResponse.success("Status updated", adminService.updateVendorStatus(id, dto.getStatus())));
     }
 
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<ApiResponse<String>> deleteUser(@PathVariable String id) {
+        adminService.deleteUser(id);
+        return ResponseEntity.ok(ApiResponse.success("User deleted successfully", id));
+    }
+
     @Data
     public static class StatusDto {
         private String status;

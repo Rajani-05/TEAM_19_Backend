@@ -21,7 +21,14 @@ public class VendorProfile {
     private Category category;
     private PriceRange priceRange;
     private String description;
+    private String phoneNo;
+    private String gender;
+    private String location;
+    private int experienceYears;
+    private boolean available = true;
+    private List<String> servicesOffered;
     private List<String> portfolioImages;
+    private List<String> blockedDates; // ISO date strings like "2026-07-25"
     @Builder.Default
     private double averageRating = 0.0;
     @Builder.Default

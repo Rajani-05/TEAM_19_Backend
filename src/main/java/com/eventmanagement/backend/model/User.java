@@ -20,10 +20,12 @@ public class User {
     private String email;
     private String passwordHash;
     private Role role;
+    private String phoneNo;
+    private String gender;
     @CreatedDate
     private Instant createdAt;
 
     public enum Role {
-        PLANNER, VENDOR, CLIENT, ADMIN
+        PLANNER, VENDOR, CLIENT, ADMIN, USER
     }
 }

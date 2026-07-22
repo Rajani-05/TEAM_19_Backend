@@ -26,11 +26,25 @@ public class AuthService {
         if ("ADMIN".equalsIgnoreCase(request.getRole())) {
             throw new BadRequestException("Administrator registration is not permitted.");
         }
+        User.Role mappedRole = User.Role.CLIENT;
+        if (request.getRole() != null) {
+            String r = request.getRole().toUpperCase();
+            if ("PLANNER".equals(r)) mappedRole = User.Role.PLANNER;
+            else if ("VENDOR".equals(r)) mappedRole = User.Role.VENDOR;
+            else if ("ADMIN".equals(r)) {
+                throw new BadRequestException("Administrator registration is not permitted.");
+            } else {
+                mappedRole = User.Role.CLIENT;
+            }
+        }
+
         User user = User.builder()
                 .name(request.getName())
                 .email(request.getEmail())
                 .passwordHash(passwordEncoder.encode(request.getPassword()))
-                .role(User.Role.valueOf(request.getRole().toUpperCase()))
+                .role(mappedRole)
+                .phoneNo(request.getPhoneNo())
+                .gender(request.getGender())
                 .build();
         user = userRepository.save(user);
 
@@ -38,7 +52,13 @@ public class AuthService {
         return AuthResponse.builder()
                 .token(token)
                 .user(AuthResponse.UserDto.builder()
-                        .id(user.getId()).name(user.getName()).email(user.getEmail()).role(user.getRole().name()).build())
+                        .id(user.getId())
+                        .name(user.getName())
+                        .email(user.getEmail())
+                        .role(user.getRole().name())
+                        .phoneNo(user.getPhoneNo())
+                        .gender(user.getGender())
+                        .build())
                 .build();
     }
 
@@ -50,7 +70,13 @@ public class AuthService {
         return AuthResponse.builder()
                 .token(token)
                 .user(AuthResponse.UserDto.builder()
-                        .id(user.getId()).name(user.getName()).email(user.getEmail()).role(user.getRole().name()).build())
+                        .id(user.getId())
+                        .name(user.getName())
+                        .email(user.getEmail())
+                        .role(user.getRole().name())
+                        .phoneNo(user.getPhoneNo())
+                        .gender(user.getGender())
+                        .build())
                 .build();
     }
 }

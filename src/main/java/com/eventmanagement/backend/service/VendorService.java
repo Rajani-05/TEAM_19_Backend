@@ -41,7 +41,14 @@ public class VendorService {
         existing.setCategory(profile.getCategory());
         existing.setPriceRange(profile.getPriceRange());
         existing.setDescription(profile.getDescription());
+        existing.setPhoneNo(profile.getPhoneNo());
+        existing.setGender(profile.getGender());
+        existing.setLocation(profile.getLocation());
+        existing.setExperienceYears(profile.getExperienceYears());
+        existing.setAvailable(profile.isAvailable());
+        existing.setServicesOffered(profile.getServicesOffered());
         existing.setPortfolioImages(profile.getPortfolioImages());
+        existing.setBlockedDates(profile.getBlockedDates());
         return vendorProfileRepository.save(existing);
     }
 }
