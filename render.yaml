@@ -11,3 +11,5 @@ services:
         value: eventdb
       - key: PORT
         value: "8080"
+      - key: APP_CORS_ALLOWED_ORIGINS
+        value: https://team-19-frontend.onrender.com,http://localhost:5173
